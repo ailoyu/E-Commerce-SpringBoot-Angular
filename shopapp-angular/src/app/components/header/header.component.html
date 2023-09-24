@@ -1,0 +1,64 @@
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        <div class="container">
+            <a class="navbar-brand" routerLink="/" routerLinkActive="active">
+                Twinkle
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/home" routerLinkActive="active">
+                          <i class="fas fa-home icon"></i>
+                          Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/products" routerLinkActive="active">
+                          <i class="fas fa-tags icon"></i>
+                          Sản phẩm</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/order" routerLinkActive="active">
+                            <i class="fas fa-shopping-cart icon"></i>
+                            Giỏ hàng
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" routerLink="/about-us" routerLinkActive="active">
+                          <i class="fas fa-info-circle icon"></i>
+                          Về chúng tôi
+                      </a>
+                  </li>
+                    
+                    <li *ngIf="loginResponse$ | async as loginResponse; else loginLink">
+                        <div class="dropdown">
+                          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user icon"></i>
+                            {{loginResponse.fullname}}
+                          </button>
+                          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li *ngIf="loginResponse.role_id === 2" routerLink="/admin/edit-products" routerLinkActive="active">Trang quản trị</li>
+                            <li routerLink="/info" routerLinkActive="active">Thông tin tài khoản</li>
+                            <li routerLink="/order-history" routerLinkActive="active">Lịch sử đơn hàng</li>
+                            <li routerLink="/change-password" routerLinkActive="active">Đổi mật khẩu</li>
+                            <li (click)="signOut()">Đăng xuất</li>
+                          </ul>
+                        </div>
+                      </li>
+                      <ng-template #loginLink>
+                        <li class="nav-item">
+                          <a class="nav-link" routerLink="/login" routerLinkActive="active">Đăng nhập</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" routerLink="/register" routerLinkActive="active">Đăng ký</a>
+                        </li>                          
+                      </ng-template>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
+</header>

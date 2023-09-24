@@ -1,0 +1,25 @@
+<app-header></app-header>
+<!-- <router-outlet></router-outlet> -->
+
+<div class="container">
+    <div class="intro-section">
+        <h1>Trang chủ</h1>
+        <p>Quang đẹp trai</p>
+    </div>
+    
+    <!-- Đoạn này có 1 search bar bên trái, 1 combo box bên phải (hiện danh mục sphẩm) -->
+    <carousel>
+        <div  *ngFor="let product of products">
+        <slide (click)="onProductClick(product.id)">
+          <img class="carousel-image" [src]="product.url" alt="Slide 1" style="cursor: pointer;">
+          <div class="carousel-caption">
+            <h3>{{product.name}}</h3>
+            <p>Giá: ${{product.price | number: '.0-0' }}</p>
+          </div>
+        </slide>
+    </div>
+      </carousel>
+
+</div>
+<!-- <router-outlet></router-outlet> -->
+<app-footer></app-footer>

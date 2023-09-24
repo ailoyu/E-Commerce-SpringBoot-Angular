@@ -1,0 +1,10 @@
+.loading-circle {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    border-top-color: #333;
+    animation: spin 1s infinite linear;
+    margin-left: 8px;
+  }
