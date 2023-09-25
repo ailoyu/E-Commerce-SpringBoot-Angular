@@ -14,6 +14,7 @@ import { IdentityComponent } from './components/identity/identity.component';
 import { AdminEditComponent } from './components/admin-edit/admin-edit.component';
 import { AdminAuthGuard } from './service/admin.authorization.service';
 import { LoginAuthGuard } from './service/login.authorization.service';
+import { AdminListProductsComponent } from './components/admin-list-products/admin-list-products.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -22,7 +23,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent }, 
   { path: 'register', component: RegisterComponent }, 
   { path: 'order', component: OrderComponent }, 
-  { path: 'order-confirm', component: OrderConfirmComponent, canActivate:[LoginAuthGuard] }, 
+  { path: 'order-confirm', component: OrderConfirmComponent}, 
   { path: 'detail-product/:id', component: DetailProductComponent }, // Route cho DetailProductComponent
   { path: 'order-history', component: OrderHistoryComponent, canActivate:[LoginAuthGuard]},
   { path: 'about-us', component: AboutUsComponent},
@@ -33,7 +34,8 @@ const routes: Routes = [
     canActivate: [AdminAuthGuard], 
     children: [
       { path: 'edit-products', component: AdminEditComponent },
-      // Other admin routes
+      { path: 'edit-products/:id', component: AdminEditComponent },
+      { path: 'list-products', component: AdminListProductsComponent },
     ]
   },
 

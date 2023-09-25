@@ -1,5 +1,6 @@
 package com.twinkle.shopapp.utils;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,12 +23,12 @@ public class ImageUtils {
 
         // Lấy ra file name của ảnh .jpg/jpeg/png
         String filename = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
-
+        String extension = FilenameUtils.getExtension(filename);
         // Thêm UUID vào trước tên file để đảm bảo tên file là duy nhất
-        String generatedFileName = UUID.randomUUID().toString() + "_" + filename;
+        String generatedFileName = UUID.randomUUID().toString() + "." + extension;
 
-        String fileName = storeFileInFolder(file, generatedFileName);
-        return fileName;
+        String newFileName = storeFileInFolder(file, generatedFileName);
+        return newFileName;
 
     }
 
@@ -53,7 +54,7 @@ public class ImageUtils {
 
         //convert base64 string to binary data
         byte[] imageAvatar = DatatypeConverter.parseBase64Binary(strings[1]);
-        String generatedFileName = UUID.randomUUID().toString().replace("-", "");
+        String generatedFileName = UUID.randomUUID().toString();
         CustomMultipartFile multipartFile = new CustomMultipartFile(imageAvatar);
         generatedFileName = generatedFileName + "." + extension;
 

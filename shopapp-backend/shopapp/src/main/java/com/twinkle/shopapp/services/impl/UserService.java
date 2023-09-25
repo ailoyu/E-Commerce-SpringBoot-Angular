@@ -136,9 +136,11 @@ public class UserService implements IUserService {
         existingUser.setPhoneNumber(userDTO.getPhoneNumber());
 
         // Base64 -> MultipartFile
-        String generatedFileName = ImageUtils.storeFileWithBase64(userDTO.getAvatar());
+        if(userDTO.getAvatar() != null){
+            String generatedFileName = ImageUtils.storeFileWithBase64(userDTO.getAvatar());
+            existingUser.setAvatar(generatedFileName);
+        }
 
-        existingUser.setAvatar(generatedFileName);
         existingUser.setAddress(userDTO.getAddress());
         existingUser.setDateOfBirth(existingUser.getDateOfBirth());
         existingUser.setFullName(userDTO.getFullName());

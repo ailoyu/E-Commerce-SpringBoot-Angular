@@ -4,6 +4,7 @@ package com.twinkle.shopapp.dtos;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,8 +26,10 @@ public class OrderDTO {
     private Long userId;
 
     @JsonProperty("fullname")
+    @NotBlank(message = "Vui lòng nhập họ và tên!")
     private String fullName;
 
+    @NotBlank(message = "Vui lòng nhập email!")
     private String email;
 
     @JsonProperty("phone_number")
@@ -34,6 +37,7 @@ public class OrderDTO {
 //    @Size(min = 5, message = "Số điện thoại phải trên 5 ký tự!")
     private String phoneNumber;
 
+    @NotBlank(message = "Vui lòng nhập địa chỉ!")
     private String address;
 
     private String note;
@@ -55,6 +59,7 @@ public class OrderDTO {
     private String paymentMethod;
 
     @JsonProperty("cart_items")
+    @NotEmpty(message = "Vui lòng không để giỏ hàng trống!")
     private List<CartItemDTO> cartItems;
 
 }

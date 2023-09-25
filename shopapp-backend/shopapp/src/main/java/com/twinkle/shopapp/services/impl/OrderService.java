@@ -59,7 +59,7 @@ public class OrderService implements IOrderService {
 
         // kIỂM TRA nếu khách hàng k nhập shipping date, lấy luôn ngày hnay
         LocalDate shippingDate = orderDTO.getShippingDate() == null
-                ? LocalDate.now() : orderDTO.getShippingDate();
+                ? LocalDate.now().plusDays(3) : orderDTO.getShippingDate();
 
         //shippingDate phải >= ngày hôm nay
         if(shippingDate.isBefore(LocalDate.now())){

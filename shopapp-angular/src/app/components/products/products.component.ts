@@ -30,11 +30,11 @@ export class ProductsComponent implements OnInit{
 
   ngOnInit() {
       this.getProducts(this.keyword, this.selectedCategoryId, this.currentPage, this.itemsPerPage);
-      this.getCategories(this.currentPage, this.itemsPerPage);
+      this.getCategories();
   }
 
-  getCategories(page: number, limit: number){
-    this.categoryService.getCategories(page, limit).subscribe({
+  getCategories(){
+    this.categoryService.getCategories().subscribe({
       next: (categories: Category[]) => {
         debugger 
         this.categories = categories;

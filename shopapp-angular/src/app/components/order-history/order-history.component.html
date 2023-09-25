@@ -16,6 +16,20 @@
                 </tr>
             </thead>
             <tbody *ngIf="selectedOrder === order.id">
+                <div style="color: white;">
+                    <h2>Thông tin người nhận</h2>
+                    <p>Tên người nhận: {{order.fullName}}</p>
+                    <p>Email: {{order.email}}</p>
+                    <p>Số điện thoại: {{order.phoneNumber}}</p>
+                    <p>Địa chỉ: {{order.address}}</p>
+                    <p>Ghi chú: {{order.note}}</p>
+                    <p>Phương thức thanh toán: {{order.paymentMethod}}</p>
+                    <p>Phương thức vận chuyển: {{order.shippingMethod}}</p>
+                    <p>Tình trạng hiện tại: {{order.status}}</p>
+                </div>
+                <hr>
+                <h2>Sản phẩm đã đặt hàng</h2>
+                <table>
                 <tr>
                     <th scope="col" class="text-start">Sản phẩm</th>
                     <th scope="col">Số lượng</th>
@@ -33,6 +47,7 @@
                     <td>${{orderDetail.price | number: '.0-0' }}</td>
                     <td>${{orderDetail.price * orderDetail.numberOfProducts | number: '.0-0'  }}</td>
                 </tr>
+            </table>
             </tbody>
             <tfoot *ngIf="selectedOrder === order.id">
                 <tr>

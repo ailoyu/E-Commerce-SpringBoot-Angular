@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { environment } from "../environments/environment";
-import { HttpClient, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Product } from "../model/product";
 
@@ -8,8 +8,10 @@ import { Product } from "../model/product";
     providedIn: 'root'
 })
 export class ProductService{
+
     
-    private apiGetProducts = `${environment.apiBaseUrl}/products`;
+    
+    private apiProducts = `${environment.apiBaseUrl}/products`;
 
     constructor(private http: HttpClient){}
 
@@ -20,7 +22,7 @@ export class ProductService{
         .set('category_id', categoryId)
         .set('page', page.toString())
         .set('limit', limit.toString());
-        return this.http.get<Product[]>(this.apiGetProducts, {params});
+        return this.http.get<Product[]>(this.apiProducts, {params});
     }
 
     getDetailProduct(productId: number){
@@ -32,8 +34,13 @@ export class ProductService{
         // ids = 1,2,3,4,5
         debugger
         const params = new HttpParams().set('ids', productIds.join(',')); 
-        return this.http.get<Product[]>(`${this.apiGetProducts}/by-ids`, { params });
+        return this.http.get<Product[]>(`${this.apiProducts}/by-ids`, { params });
       }
+
+      saveProduct(product: Product): Observable<any>{
+        debugger
+        return this.http.post(this.apiProducts, product);
+    }
 
 
 }

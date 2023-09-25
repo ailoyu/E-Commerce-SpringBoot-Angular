@@ -240,7 +240,6 @@ public class ProductController {
                     .price((float) faker.number().numberBetween(10, 90_000_000))
                     .description(faker.lorem().sentence())
                     .categoryId((long) faker.number().numberBetween(1,4))
-                    .thumbnail("")
                     .build();
             try{
                 productService.createProduct(productDTO);

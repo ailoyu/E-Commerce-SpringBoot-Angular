@@ -31,6 +31,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IdentityComponent } from './components/identity/identity.component';
 import { AdminEditComponent } from './components/admin-edit/admin-edit.component';
+import { AdminListProductsComponent } from './components/admin-list-products/admin-list-products.component';
 
 
 
@@ -51,7 +52,8 @@ import { AdminEditComponent } from './components/admin-edit/admin-edit.component
          ProductsComponent,
          AboutUsComponent,
          IdentityComponent,
-         AdminEditComponent
+         AdminEditComponent,
+         AdminListProductsComponent,
   ],
   imports: [
     ReactiveFormsModule,

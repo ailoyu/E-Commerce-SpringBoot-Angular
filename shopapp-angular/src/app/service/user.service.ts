@@ -38,7 +38,7 @@ export class UserService {
   private apiLogin = `${environment.apiBaseUrl}/users/login`;
 
 
-  login(loginDTO: LoginDTO): Observable<any>{
+  login(loginDTO: any): Observable<any>{
     debugger
     return this.http.post(this.apiLogin, loginDTO, this.apiConfig);
   }
@@ -47,7 +47,7 @@ export class UserService {
   // Gọi api update user
   private apiUpdateUser = `${environment.apiBaseUrl}/users/update`;
 
-  updateUser(updateUserDTO: UpdateUserDTO): Observable<any>{
+  updateUser(updateUserDTO: any): Observable<any>{
     debugger
     return this.http.put(this.apiUpdateUser, updateUserDTO, this.apiConfig);
   }

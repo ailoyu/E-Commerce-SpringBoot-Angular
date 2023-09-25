@@ -51,10 +51,7 @@ public class CategoryController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<Category>> getAllCategories(
-            @RequestParam int page,
-            @RequestParam("limit") int limits
-    ){
+    public ResponseEntity<List<Category>> getAllCategories(){
         List<Category> allCategories = categoryService.getAllCategories();
         return ResponseEntity.ok(allCategories);
     }

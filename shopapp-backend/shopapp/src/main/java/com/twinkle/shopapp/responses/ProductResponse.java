@@ -2,6 +2,7 @@ package com.twinkle.shopapp.responses;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.twinkle.shopapp.models.Category;
 import com.twinkle.shopapp.models.Product;
 import com.twinkle.shopapp.models.ProductImage;
 import jakarta.validation.constraints.Max;
@@ -34,6 +35,9 @@ public class ProductResponse extends BaseResponse{
     @JsonProperty("category_id") // tên trong DB
     private Long categoryId;
 
+    @JsonProperty("category_name") // tên trong DB
+    private String categoryName;
+
     @JsonProperty("product_images")
     private List<ProductImage> productImages = new ArrayList<>();
 
@@ -46,6 +50,7 @@ public class ProductResponse extends BaseResponse{
                 .thumbnail(product.getThumbnail())
                 .description(product.getDescription())
                 .categoryId(product.getCategory().getId())
+                .categoryName(product.getCategory().getName())
                 .productImages(product.getProductImages())
                 .build();
         productResponse.setCreatedAt(product.getCreatedAt());
