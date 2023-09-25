@@ -43,4 +43,18 @@ export class ProductService{
     }
 
 
+    updateProduct(product: Product): Observable<any>{
+        debugger
+        return this.http.put(`${environment.apiBaseUrl}/products/` + product.id, product);
+    }
+
+    deleteProducts(selectedIds: number[]): Observable<any>{
+        debugger
+        const options = {
+            body: { ids: selectedIds }
+          };
+        return this.http.delete(`${environment.apiBaseUrl}/products/`, options);
+    }
+
+
 }

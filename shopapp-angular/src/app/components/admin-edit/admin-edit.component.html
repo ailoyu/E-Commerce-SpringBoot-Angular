@@ -82,7 +82,7 @@
               
               <button *ngIf="this.productId !== 0" 
                       type="button" 
-                      (click)="saveProduct()"
+                      (click)="updateProduct()"
                       [disabled]="isLoading"
                       class="login-button">Cập nhật sản phẩm
                 <div *ngIf="isLoading" class="loading-circle"></div>

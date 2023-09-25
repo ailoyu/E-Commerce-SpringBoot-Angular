@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/app/environments/environment';
 import { Category } from 'src/app/model/category';
 import { Product } from 'src/app/model/product';
@@ -69,7 +69,8 @@ deleteImage(image: { file: File, base64: string }) {
   constructor(private productService: ProductService,
     private fb: FormBuilder,
     private categoryService: CategoryService,
-    private route: ActivatedRoute,) {
+    private route: ActivatedRoute,
+    private router: Router) {
     this.productForm = this.fb.group({
       name: ['', Validators.required], // fullname là FormControl bắt buộc      
       description: ['', [Validators.required]], // Sử dụng Validators.email cho kiểm tra định dạng email
@@ -184,6 +185,7 @@ deleteImage(image: { file: File, base64: string }) {
       next: (product) => {
         
         alert("Thêm sản phẩm thành công");
+        this.router.navigate(['/admin/edit-products', product.id]);
         this.isLoading = false;
       },
       complete: () => {
@@ -196,6 +198,39 @@ deleteImage(image: { file: File, base64: string }) {
         this.isLoading = false;
       }
     });
+  }
+
+
+  updateProduct() {
+    this.isLoading = true;
+
+    debugger
+    this.product = {
+      ...this.product,
+      ...this.productForm.value
+    };
+    this.product.id = this.productId;
+
+    this.product.images = this.images.map(image => image.base64);
+
+    // Call your product service to save the product
+    this.productService.updateProduct(this.product)?.subscribe({
+      next: (product) => {
+        
+        alert("Cập nhật sản phẩm thành công");
+        this.isLoading = false;
+      },
+      complete: () => {
+      
+      },
+      error: (error: any) => {
+        debugger;
+        console.error('Error fetching detail:', error);
+        alert("Cập nhật sản phẩm thất bại");
+        this.isLoading = false;
+      }
+    });
+
   }
 
   

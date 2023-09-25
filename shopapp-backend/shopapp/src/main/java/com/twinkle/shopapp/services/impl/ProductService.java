@@ -94,6 +94,7 @@ public class ProductService implements IProductService {
      }
 
     @Override
+    @Transactional
     public Product updateProduct(long id, ProductDTO productDTO) throws Exception {
         Product existingProduct = getProductById(id);
         if(existingProduct != null){
@@ -152,10 +153,15 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public void deleteProduct(long id) {
-        Optional<Product> optionalProduct = productRepository.findById(id);
-        if(optionalProduct.isPresent())
-            productRepository.delete(optionalProduct.get()); // nếu có product trong DB ms xóa
+    @Transactional
+    public void deleteProduct(Long[] ids) {
+        for(long id : ids){
+            Optional<Product> optionalProduct = productRepository.findById(id);
+            if(optionalProduct.isPresent()){
+                productRepository.delete(optionalProduct.get()); // nếu có product trong DB ms xóa
+
+            }
+        }
     }
 
     @Override

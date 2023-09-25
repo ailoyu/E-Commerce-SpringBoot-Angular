@@ -111,4 +111,41 @@ export class AdminListProductsComponent {
     // Điều hướng đến trang detail-product với productId là tham số
     this.router.navigate(['/admin/edit-products', productId]);
   }
+
+
+  selectedIds: number[] = [];
+
+
+  toggleSelection(id: number) {
+    const index = this.selectedIds.indexOf(id);
+    if (index > -1) {
+      this.selectedIds.splice(index, 1); // Remove ID if already selected
+    } else {
+      this.selectedIds.push(id); // Add ID if not selected
+    }
+  }
+
+  deleteSelectedProducts() {
+    debugger
+    console.log(this.selectedIds);
+    this.productService.deleteProducts(this.selectedIds)?.subscribe({
+      next: (product) => {
+        
+        alert("Xóa sản phẩm thành công");
+        location.reload();
+      },
+      complete: () => {
+      
+      },
+      error: (error: any) => {
+        debugger;
+        console.error('Error fetching detail:', error);
+        alert("Xóa sản phẩm thất bại");
+      }
+    });
+  }
+
+
+
+
 }

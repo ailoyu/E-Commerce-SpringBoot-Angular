@@ -38,10 +38,13 @@
             </thead>
             <tbody>
                 <tr *ngFor="let product of products">
-                    <td><input type="checkbox" id="checkbox_{{product.id}}" 
-                        name="foo" [value]="product.id" class="styled-checkbox"></td>
                     <td>
-                        <div class="product-info" (click)="onProductClick(product.id)">
+                        <input type="checkbox" id="checkbox_{{product.id}}" 
+                          name="foo" [value]="product.id" class="styled-checkbox"
+                          (change)="toggleSelection(product.id)">
+                      </td>
+                    <td>
+                        <div class="product-info" (click)="onProductClick(product.id)" style="cursor: pointer;">
                             <img 
                             [src]="product.url"
                             alt="Product Image" class="product-image">
@@ -57,6 +60,8 @@
         </table>   
         <div class="text-center mt-3">
            <button class="btn btn-gradient" type="button"><a routerLink="/admin/edit-products" routerLinkActive="active">Thêm mới sản phẩm</a></button>
+           <button class="btn btn-gradient" type="button" (click)="deleteSelectedProducts()">Xóa sản phẩm</button>
+
         </div> 
     </div>  
     

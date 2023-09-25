@@ -7,6 +7,7 @@ import com.twinkle.shopapp.dtos.ProductDTO;
 import com.twinkle.shopapp.dtos.ProductImageDTO;
 import com.twinkle.shopapp.models.Product;
 import com.twinkle.shopapp.models.ProductImage;
+import com.twinkle.shopapp.responses.CategoryResponse;
 import com.twinkle.shopapp.responses.ProductListResponse;
 import com.twinkle.shopapp.responses.ProductResponse;
 import com.twinkle.shopapp.services.IProductService;
@@ -218,11 +219,14 @@ public class ProductController {
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteProduct(@PathVariable Long id) {
+    @DeleteMapping("/")
+    public ResponseEntity<?> deleteProduct(@RequestBody Map<String, Long[]> request) {
         try{
-            productService.deleteProduct(id);
-            return ResponseEntity.ok().body("Xóa thành công");
+            Long[] ids = request.get("ids");
+            productService.deleteProduct(ids);
+            return ResponseEntity.ok().body(CategoryResponse.builder()
+                            .message("Xóa thành công")
+                    .build());
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }

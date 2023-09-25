@@ -19,7 +19,7 @@ public interface IProductService {
     Product getProductById(long id) throws Exception;
     Page<ProductResponse> getAllProducts(String keyword, Long categoryId, PageRequest pageRequest);
     Product updateProduct(long id, ProductDTO productDTO) throws Exception;
-    void deleteProduct(long id);
+    void deleteProduct(Long[] id);
     boolean existsByName(String name);
 
     public List<Product> findProductByIds(List<Long> productIds);
