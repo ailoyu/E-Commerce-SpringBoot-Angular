@@ -1,0 +1,94 @@
+<app-header></app-header>
+<div class="dashboard">
+    <div class="dashboard-sidebar">
+      <!-- Add your dashboard components here -->
+      <ul>
+        <li><a routerLink="/admin/list-products" routerLinkActive="active">Chỉnh sửa sản phẩm</a></li>
+        <li><a routerLink="/admin/order-confirm/pending" routerLinkActive="active">Xác nhận đơn hàng</a></li>
+        <li><a routerLink="/admin/edit-products" routerLinkActive="active">Thêm mới sản phẩm</a></li>
+      </ul>
+    </div>
+<div class="container">
+    <div class="confirmation-container" style="text-align: center;">
+        <h1>Danh sách sản phẩm</h1>
+        <div class="search-box">
+            <input type="text" class="form-control search-input" 
+            placeholder="Tìm sản phẩm" 
+            [(ngModel)]="keyword">
+            <select class="form-control product-category"
+                [(ngModel)]="selectedCategoryId">
+                <option [value]="0">Tất cả</option>
+                <option *ngFor="let category of categories" [value]="category.id">
+                    {{category.name}}</option>
+            </select>
+            <button class="btn btn-primary ml-2" (click)="searchProducts()">Tìm kiếm</button>
+        </div>
+    </div>
+    <div class="row">
+        <table>
+            <thead>
+                <tr>
+                    <th><input type="checkbox" onClick="toggle(this)"  
+                        (click)="toggleAllCheckboxes()"  id="checkAll" class="styled-checkbox"></th>
+                    <th scope="col" class="text-start">Sản phẩm</th>
+                    <th scope="col">Mô tả sản phẩm</th>
+                    <th scope="col">Giá sản phẩm</th>
+                    <th scope="col">Thể loại</th>
+                  </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let product of products">
+                    <td>
+                        <input type="checkbox" id="checkbox_{{product.id}}" 
+                          name="foo" [value]="product.id" class="styled-checkbox"
+                          (change)="toggleSelection(product.id)">
+                      </td>
+                    <td>
+                        <div class="product-info" (click)="onProductClick(product.id)" style="cursor: pointer;">
+                            <img 
+                            [src]="product.url"
+                            alt="Product Image" class="product-image">
+                            <span class="product-name">{{product.name}}</span>
+                        </div>
+                    </td>
+                    <td>{{product.description}}</td>
+                    <td>{{product.price}}</td>
+                    <td>{{product.category_name}}</td>
+                </tr>
+                
+            </tbody>
+        </table>   
+        <div class="text-center mt-3">
+           <button class="btn btn-gradient" type="button"><a routerLink="/admin/edit-products" routerLinkActive="active">Thêm mới sản phẩm</a></button>
+           <button class="btn btn-gradient" type="button" (click)="deleteSelectedProducts()">Xóa sản phẩm</button>
+
+        </div> 
+    </div>  
+    
+    <div class="d-flex justify-content-center" style="color: black; margin-top: 50px;">
+        <nav aria-label="Page navigation" style="cursor: pointer;">
+            <ul class="pagination">
+                <li class="page-item" *ngIf="currentPage > 1">
+                    <a class="page-link" (click)="onPageChange(1)">First</a>
+                </li>
+                <li class="page-item" *ngIf="currentPage > 1">
+                    <a class="page-link" (click)="onPageChange(currentPage - 1)">Previous</a>
+                </li>
+            <ng-container *ngFor="let page of visiblePages">
+                <li class="page-item" [ngClass]="{'active' : page === currentPage}">
+                    <a class="page-link"(click)="onPageChange(page)">{{page}}</a>
+                </li>
+            </ng-container>
+                <li class="page-item" *ngIf="currentPage < totalPages">
+                    <a class="page-link" (click)="onPageChange(currentPage + 1)">Next</a>
+                </li>
+                <li class="page-item" *ngIf="currentPage < totalPages">
+                    <a class="page-link" (click)="onPageChange(totalPages)">Last</a>
+                </li>
+            </ul>
+    
+        </nav>
+    </div>
+</div>
+</div>
+<app-footer></app-footer>

@@ -61,17 +61,6 @@ export class UserService {
     return this.http.post(this.apiChangePassword, loginUserDTO, this.apiConfig);
   }
   
-  
-  user: any;
-
-
-  setUser(user: any) {
-    this.user = user;
-  }
-
-  getUser() {
-    return this.user;
-  }
 
 
 

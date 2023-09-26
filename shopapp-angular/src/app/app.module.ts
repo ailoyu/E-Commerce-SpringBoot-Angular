@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HomeComponent } from './components/home/home.component';
-import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { DetailProductComponent } from './components/detail-product/detail-product.component';
-import { OrderComponent } from './components/order/order.component';
-import { OrderDetailComponent } from './components/order-detail/order-detail.component';
-import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
+import { HomeComponent } from './components/user/home/home.component';
+import { HeaderComponent } from './components/header-footer/header/header.component';
+import { FooterComponent } from './components/header-footer/footer/footer.component';
+import { DetailProductComponent } from './components/user/detail-product/detail-product.component';
+import { OrderComponent } from './components/user/order/order.component';
+import { OrderDetailComponent } from './components/user/order-detail/order-detail.component';
+import { LoginComponent } from './components/user/login/login.component';
+import { RegisterComponent } from './components/user/register/register.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { 
@@ -20,19 +20,19 @@ import { RouterModule, Routes } from '@angular/router';
 
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './components/app/app.component';
-import { OrderHistoryComponent } from './components/order-history/order-history.component';
-import { ChangePasswordComponent } from './components/change-password/change-password.component';
-import { ProductsComponent } from './components/products/products.component';
+import { AppComponent } from './components/user/app/app.component';
+import { OrderHistoryComponent } from './components/user/order-history/order-history.component';
+import { ChangePasswordComponent } from './components/user/change-password/change-password.component';
+import { ProductsComponent } from './components/user/products/products.component';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
-import { AboutUsComponent } from './components/about-us/about-us.component';
+import { AboutUsComponent } from './components/user/about-us/about-us.component';
 import { DatePipe } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { IdentityComponent } from './components/identity/identity.component';
-import { AdminEditComponent } from './components/admin-edit/admin-edit.component';
-import { AdminListProductsComponent } from './components/admin-list-products/admin-list-products.component';
-import { AdminOrderConfirmComponent } from './components/admin-order-confirm/admin-order-confirm.component';
+import { IdentityComponent } from './components/user/identity/identity.component';
+import { AdminEditComponent } from './components/admin/admin-edit/admin-edit.component';
+import { AdminListProductsComponent } from './components/admin/admin-list-products/admin-list-products.component';
+import { AdminOrderConfirmComponent } from './components/admin/admin-order-confirm/admin-order-confirm.component';
 
 
 

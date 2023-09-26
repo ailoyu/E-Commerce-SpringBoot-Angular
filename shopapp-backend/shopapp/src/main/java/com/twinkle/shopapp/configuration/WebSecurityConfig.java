@@ -3,6 +3,7 @@ package com.twinkle.shopapp.configuration;
 import com.twinkle.shopapp.filters.JwtTokenFilter;
 import com.twinkle.shopapp.models.Role;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -30,6 +31,9 @@ public class WebSecurityConfig {
 
     private final JwtTokenFilter jwtTokenFilter;
 
+    @Value("${api.prefix}")
+    private String apiPrefix;
+
     // Các request gửi tới phải dc phân quyền, ms dc pass qua
 
     @Bean // Kiểm tra quyền là gì
@@ -40,71 +44,72 @@ public class WebSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(requests ->{
-                    requests.requestMatchers("api/v1/users/register",
-                                                "api/v1/users/login")
+                    requests.requestMatchers(
+                            String.format("%s/users/register", apiPrefix),
+                                    String.format("%s/users/login", apiPrefix))
                             .permitAll()        // Cho hết tất cả các role
                             // chỉ định các role dc truy cập vào API
 
                             .requestMatchers(HttpMethod.GET,
-                                    "api/v1/users/**").permitAll()
+                                    String.format("%s/users/**", apiPrefix)).permitAll()
 
                             .requestMatchers(HttpMethod.POST,
-                                    "api/v1/users/**").permitAll()
+                                    String.format("%s/users/**", apiPrefix)).permitAll()
 
                             .requestMatchers(HttpMethod.GET,
-                                    "api/v1/roles**").permitAll()
+                                    String.format("%s/roles**", apiPrefix)).permitAll()
 
                             .requestMatchers(HttpMethod.POST,
-                                    "api/v1/categories/**").hasAnyRole(Role.ADMIN)
+                                    String.format("%s/categories/**", apiPrefix)).hasAnyRole(Role.ADMIN)
 
                             .requestMatchers(HttpMethod.PUT,
-                                    "api/v1/categories/**").hasAnyRole(Role.ADMIN)
+                                    String.format("%s/categories/**", apiPrefix)).hasAnyRole(Role.ADMIN)
 
                             .requestMatchers(HttpMethod.DELETE,
-                                    "api/v1/categories/**").hasAnyRole(Role.ADMIN)
+                                    String.format("%s/categories/**", apiPrefix)).hasAnyRole(Role.ADMIN)
 
                             .requestMatchers(HttpMethod.GET,
-                                    "api/v1/categories**").permitAll()
+                                    String.format("%s/categories**", apiPrefix)).permitAll()
 
                             .requestMatchers(HttpMethod.POST,
-                                    "api/v1/products**").hasRole(Role.ADMIN)
+                                    String.format("%s/products**", apiPrefix)).hasRole(Role.ADMIN)
 
                             .requestMatchers(HttpMethod.PUT,
-                                    "api/v1/products/**").hasAnyRole(Role.ADMIN)
+                                    String.format("%s/products/**", apiPrefix)).hasAnyRole(Role.ADMIN)
 
                             .requestMatchers(HttpMethod.DELETE,
-                                    "api/v1/products/**").hasAnyRole(Role.ADMIN)
+                                    String.format("%s/products/**", apiPrefix)).hasAnyRole(Role.ADMIN)
 
                             .requestMatchers(HttpMethod.GET,
-                                    "api/v1/products/**").permitAll()
+                                    String.format("%s/products/**", apiPrefix)).permitAll()
 
                             .requestMatchers(HttpMethod.GET,
-                                    "api/v1/products/images/*").permitAll()
+                                    String.format("%s/products/images/**", apiPrefix)).permitAll()
 
                             .requestMatchers(HttpMethod.POST,
-                                    "api/v1/orders/**").permitAll()
+                                    String.format("%s/orders/**", apiPrefix)).permitAll()
 
-                            .requestMatchers(HttpMethod.GET, "api/v1/orders/history/{user_id}").hasAnyRole(Role.USER, Role.ADMIN)
+                            .requestMatchers(HttpMethod.GET, String.format("%s/orders/history/{user_id}", apiPrefix)).hasAnyRole(Role.USER, Role.ADMIN)
 
-                            .requestMatchers(HttpMethod.GET, "api/v1/orders/order-confirm/**").hasRole(Role.ADMIN)
+                            .requestMatchers(HttpMethod.GET, String.format("%s/orders/order-confirm/**", apiPrefix)).hasRole(Role.ADMIN)
 
                             .requestMatchers(HttpMethod.PUT,
-                                    "api/v1/orders/**").hasRole(Role.ADMIN)
+                                    String.format("%s/orders/**", apiPrefix)).hasRole(Role.ADMIN)
 
                             .requestMatchers(HttpMethod.DELETE,
-                                    "api/v1/orders/**").hasRole(Role.ADMIN)
+                                    String.format("%s/orders/**", apiPrefix)).hasRole(Role.ADMIN)
 
                             .requestMatchers(HttpMethod.POST,
-                                    "api/v1/order_details/**").hasAnyRole(Role.USER, Role.ADMIN)
+                                    String.format("%s/order_details/**", apiPrefix)).hasAnyRole(Role.USER, Role.ADMIN)
 
                             .requestMatchers(HttpMethod.GET,
-                                    "api/v1/order_details/**").hasAnyRole(Role.USER, Role.ADMIN)
+                                    String.format("%s/order_details/**", apiPrefix)).hasAnyRole(Role.USER, Role.ADMIN)
 
                             .requestMatchers(HttpMethod.PUT,
-                                    "api/v1/order_details/**").hasRole(Role.ADMIN)
+                                    String.format("%s/order_details/**", apiPrefix)).hasRole(Role.ADMIN)
 
                             .requestMatchers(HttpMethod.DELETE,
-                                    "api/v1/order_details/**").hasRole(Role.ADMIN)
+                                    String.format("%s/order_details/**", apiPrefix)).hasRole(Role.ADMIN)
 
                             .anyRequest().authenticated();
                 }).csrf(AbstractHttpConfigurer::disable);

@@ -1,0 +1,95 @@
+<app-header></app-header>
+<div class="dashboard">
+    <div class="dashboard-sidebar">
+      <!-- Add your dashboard components here -->
+      <ul>
+        <li><a routerLink="/admin/list-products" routerLinkActive="active">Chỉnh sửa sản phẩm</a></li>
+        <li><a routerLink="/admin/order-confirm/pending" routerLinkActive="active">Xác nhận đơn hàng</a></li>
+        <li><a routerLink="/admin/edit-products" routerLinkActive="active">Thêm mới sản phẩm</a></li>
+      </ul>
+    </div>
+<div class="admin-products">
+  <form [formGroup]="productForm">
+    <h1>Chỉnh sửa sản phẩm</h1>
+      <div class="form-group">
+        <label for="name">Tên sản phẩm:</label>
+        <input type="text" id="productName" name="productName" 
+        required
+        formControlName="name" 
+        [class.is-invalid]="productForm.get('name')!.invalid && productForm.get('name')!.touched">
+        <div 
+        *ngIf="productForm.get('name')!.invalid && productForm.get('name')!.touched" 
+        class="invalid-feedback">
+        Vui lòng nhập tên sản phẩm!
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="description">Mô tả sản phẩm:</label>
+        <textarea id="description" name="description" required
+        formControlName="description" 
+        [class.is-invalid]="productForm.get('description')!.invalid && productForm.get('description')!.touched">
+        </textarea>
+        <div 
+        *ngIf="productForm.get('description')!.invalid && productForm.get('description')!.touched" 
+        class="invalid-feedback">
+        Vui lòng nhập mô tả sản phẩm!
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="price">Giá:</label>
+        <input type="number" id="price" name="price" required
+        formControlName="price" 
+        [class.is-invalid]="productForm.get('price')!.invalid && productForm.get('price')!.touched">
+        <div 
+        *ngIf="productForm.get('price')!.invalid && productForm.get('price')!.touched" 
+        class="invalid-feedback">
+        Vui lòng nhập giá của sản phẩm!
+        </div>
+      </div>
+                <div class="form-group">
+                  <label for="name">Thể loại:</label>
+                  <select formControlName="category_id" class="form-control access-right">
+                    <option [value]="0" disabled>-- Select an option --</option>
+                    <option *ngFor="let category of categories" [value]="category.id">
+                      {{category.name}}</option>
+                  </select>
+                  <div *ngIf="productForm.get('category_id')?.errors?.['required'] && productForm.get('category_id')!.touched" 
+                  
+                  style="color: red;">
+                  Vui lòng chọn thể loại sản phẩm!
+                  </div>
+                  </div>
+                <div class="mt-5"></div>
+
+                <div class="form-group">
+                  <label for="image">Thêm hình ảnh sản phẩm:</label>
+                  <input type="file" id="image" name="image" (change)="onFileChange($event)" multiple style="color: wheat;">
+                </div>
+                
+                <div class="image-container">
+                  <div *ngFor="let image of images" class="image-wrapper">
+                    <img [src]="image.base64" alt="Image" style="max-width: 400px; max-height: 400px;">
+                    <button class="delete-button" (click)="deleteImage(image)">X</button>
+                  </div>
+                </div>
+                <button *ngIf="this.productId === 0" 
+                type="button" 
+                (click)="saveProduct()"
+                [disabled]="isLoading"
+                class="login-button">Lưu sản phẩm
+          <div *ngIf="isLoading" class="loading-circle"></div>
+              </button>
+              
+              <button *ngIf="this.productId !== 0" 
+                      type="button" 
+                      (click)="updateProduct()"
+                      [disabled]="isLoading"
+                      class="login-button">Cập nhật sản phẩm
+                <div *ngIf="isLoading" class="loading-circle"></div>
+              </button>
+        
+                  <div class="divider"></div>
+    </form>
+  </div>
+</div>
+<app-footer></app-footer>

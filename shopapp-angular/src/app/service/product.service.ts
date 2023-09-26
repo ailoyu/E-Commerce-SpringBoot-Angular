@@ -8,8 +8,6 @@ import { Product } from "../model/product";
     providedIn: 'root'
 })
 export class ProductService{
-
-    
     
     private apiProducts = `${environment.apiBaseUrl}/products`;
 

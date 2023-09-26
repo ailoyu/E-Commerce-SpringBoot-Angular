@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.internal.Pair;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,6 +25,9 @@ import java.util.List;
 @RequiredArgsConstructor
 // mỗi request phải dc kiểm JWT token ở class này
 public class JwtTokenFilter extends OncePerRequestFilter {
+
+    @Value("${api.prefix}")
+    private String apiPrefix;
 
     private final UserDetailsService userDetailsService;
 
@@ -88,12 +92,12 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     private boolean isBypassToken(@NonNull HttpServletRequest request){
         // Các danh sách API được pass ko cần sử dụng token
         final List<Pair<String, String>> bypassTokens = Arrays.asList(
-                Pair.of("api/v1/products", "GET"),
-                Pair.of("api/v1/categories", "GET"),
-                Pair.of("api/v1/users/register", "POST"),
-                Pair.of("api/v1/users/login", "POST"),
-                Pair.of("api/v1/orders", "POST"),
-                Pair.of("api/v1/roles", "GET")
+                Pair.of(String.format("%s/products", apiPrefix), "GET"),
+                Pair.of(String.format("%s/categories", apiPrefix), "GET"),
+                Pair.of(String.format("%s/users/register", apiPrefix), "POST"),
+                Pair.of(String.format("%s/users/login", apiPrefix), "POST"),
+                Pair.of(String.format("%s/orders", apiPrefix), "POST"),
+                Pair.of(String.format("%s/roles", apiPrefix), "GET")
         );
         for(Pair<String, String> bypassToken : bypassTokens){
             if(request.getServletPath().contains(bypassToken.getLeft()) &&

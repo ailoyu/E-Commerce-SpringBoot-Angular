@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
-import { DetailProductComponent } from './components/detail-product/detail-product.component';
-import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
-import { OrderComponent } from './components/order/order.component';
-import { OrderDetailComponent } from './components/order-detail/order-detail.component';
-import { OrderHistoryComponent } from './components/order-history/order-history.component';
-import { ProductsComponent } from './components/products/products.component';
-import { AboutUsComponent } from './components/about-us/about-us.component';
-import { ChangePasswordComponent } from './components/change-password/change-password.component';
-import { IdentityComponent } from './components/identity/identity.component';
-import { AdminEditComponent } from './components/admin-edit/admin-edit.component';
-import { AdminAuthGuard } from './service/admin.authorization.service';
-import { LoginAuthGuard } from './service/login.authorization.service';
-import { AdminListProductsComponent } from './components/admin-list-products/admin-list-products.component';
-import { AdminOrderConfirmComponent } from './components/admin-order-confirm/admin-order-confirm.component';
+import { HomeComponent } from './components/user/home/home.component';
+import { DetailProductComponent } from './components/user/detail-product/detail-product.component';
+import { LoginComponent } from './components/user/login/login.component';
+import { RegisterComponent } from './components/user/register/register.component';
+import { OrderComponent } from './components/user/order/order.component';
+import { OrderDetailComponent } from './components/user/order-detail/order-detail.component';
+import { OrderHistoryComponent } from './components/user/order-history/order-history.component';
+import { ProductsComponent } from './components/user/products/products.component';
+import { AboutUsComponent } from './components/user/about-us/about-us.component';
+import { ChangePasswordComponent } from './components/user/change-password/change-password.component';
+import { IdentityComponent } from './components/user/identity/identity.component';
+import { AdminEditComponent } from './components/admin/admin-edit/admin-edit.component';
+import { AdminAuthGuard } from './authorization/admin.authorization.service';
+import { LoginAuthGuard } from './authorization/login.authorization.service';
+import { AdminListProductsComponent } from './components/admin/admin-list-products/admin-list-products.component';
+import { AdminOrderConfirmComponent } from './components/admin/admin-order-confirm/admin-order-confirm.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },

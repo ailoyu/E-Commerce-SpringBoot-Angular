@@ -1,0 +1,184 @@
+.admin-products {
+    max-width: 1000px;
+    width: 6000px;
+    margin: 0 auto;
+    padding: 20px;
+  
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #fff; /* Add this line to set the text color to white */
+    }
+    
+  
+    form {
+      .form-group {
+        margin-bottom: 20px;
+  
+        label {
+          display: block;
+          margin-bottom: 5px;
+          color: #fff; /* Add this line to set the text color to white */
+        }
+  
+        input[type="text"],
+        input[type="number"],
+        textarea {
+          width: 100%;
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          color: #000; /* Set the text color to black for better visibility */
+          background-color: #fff; /* Set the background color to white for better */
+        }
+  
+        textarea {
+          height: 100px;
+        }
+  
+        img {
+          max-width: 200px;
+          margin-top: 10px;
+        }
+      }
+  
+      button[type="submit"] {
+        display: block;
+        margin: 0 auto;
+        padding: 10px 250px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+    }
+
+
+  .image-container {
+    display: flex;
+    position: relative;
+
+  }
+  
+  .image-item:last-child {
+    margin-right: 0;
+  }
+  
+  .image-wrapper {
+    position: relative;
+    display: inline-block;
+    margin-right: 10px;
+  }
+  
+  .delete-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: gray;
+    color: white;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  
+
+}
+
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+.dashboard {
+  display: flex;
+
+
+  .dashboard-sidebar {
+    width: 200px;
+    background-color: #007bff;
+    padding: 20px;
+    animation: slide-in 0.5s ease-in-out;
+    }
+    
+    @keyframes slide-in {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+    }
+    
+    @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+    }
+    
+    .dashboard-sidebar ul {
+    list-style: none;
+    padding: 0;
+    }
+    
+    .dashboard-sidebar li {
+    margin-bottom: 10px;
+    color: #fff;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+    }
+    
+    .dashboard-sidebar li:hover {
+    color: #e3e3e3;
+    }
+  
+}
+
+
+
+
+
+.login-button {
+  background: linear-gradient(to right, rgb(225, 64, 180), rgb(126, 43, 237));
+  color: white;
+  border-radius: 30px;
+  width: 100%;
+  padding: 10px 0;
+  margin-top: 20px;
+  border: none;
+}
+.divider {
+  height: 1px;
+  background-color: rgb(243, 165, 42);
+  /* background-color: rgb(105, 244, 181) */
+  margin: 20px;
+}
+
+
+.loading-circle {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  border-top-color: #333;
+  animation: spin 1s infinite linear;
+  margin-left: 8px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

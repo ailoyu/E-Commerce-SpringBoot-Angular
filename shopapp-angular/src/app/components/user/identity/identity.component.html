@@ -1,0 +1,77 @@
+<app-header></app-header>
+<div class="container text-white"> <!-- Add the 'text-white' class to make all text white -->
+    <br>
+    <br>
+    <div class="text-center">
+        <h1>Chỉnh sửa thông tin</h1>
+    </div>
+
+    <form id="formSubmit" class="form">
+        <input type="hidden" name="hanhDong" value="thay-doi-thong-tin" />
+        <div class="row">
+
+            <div class="col-md-6">
+            <br>
+                <div style="margin-left:auto;margin-right:auto;text-align:center">
+                    <img [src]="loginResponse?.avatar" class="rounded-circle mb-3" 
+                    style="width: 150px;" alt="Avatar" id="avatarImage" />
+                <h5 class="mb-2">
+                    <strong>{{loginResponse?.fullname}}</strong>
+                </h5>
+                <p>
+                    {{loginResponse?.phone_number}}  <span class="badge bg-primary"></span>
+                </p>
+                <button id="fileButton" type="button" class="btn btn-primary btn-rounded" (click)="updateAvatar()">Cập nhật hình ảnh</button>
+                </div>
+                <input id="avatar" name="avatar" type="file" (change)="previewFile()" style="visibility: hidden;">
+            </div>
+            <div class="col-md-6">
+            <div class="mb-3">
+                    <label for="hoVaTen" class="form-label"><strong>Họ Và Tên</strong> </label> <input type="text" 
+                    class="form-control" id="fullName" name="fullName" 
+                    [(ngModel)]="fullName" [value]="loginResponse?.fullname" >
+                </div>
+                <div class="mb-3">
+                    <label for="ngaySinh" class="form-label"><strong>Ngày tháng năm sinh</strong> </label><br>
+                    <input
+                        type="date" class="form-control" id="date" name="date" disabled
+                        [value]="getFormattedDate(loginResponse?.date_of_birth ?? '')">
+                </div>
+            
+                <div class="mb-3">
+                    <label for="email" class="form-label"><strong>Số điện thoại</strong></label> <input
+                        type="text" class="form-control" id="phoneNumber" name="phoneNumber"
+                        [(ngModel)]="phoneNumber" 
+                        value="{{loginResponse?.phone_number}}"
+                        disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label"><strong>Địa chỉ</strong></label> <input
+                        type="text" class="form-control" id="address" name="address"
+                        [(ngModel)]="address" 
+                        value="{{loginResponse?.address}}">
+                </div>
+                <hr />
+                
+
+            </div>
+            
+            <br>
+            <br>
+                <button type="button" 
+                    (click)="updateUser()" [disabled]="isLoading"
+                  class="login-button btn btn-primary">Lưu thông tin
+                  <div *ngIf="isLoading" class="loading-circle"></div>
+                </button>
+                 <br>
+            <br>
+            <div class="" role="status" id="loading" style="margin-left: 33.5em">
+                              <span class="sr-only">Loading...</span>
+                        </div><br>
+            <br>
+                        
+        </div>
+
+    </form>
+</div>
+<app-footer></app-footer>

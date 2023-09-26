@@ -19,6 +19,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -129,6 +130,7 @@ public class UserService implements IUserService {
                 .build();
     }
     @Override
+    @Transactional
     public LoginResponse updateUserByPhoneNumber(UserDTO userDTO) throws DataNotFoundException, IOException {
         User existingUser = userRepository.findByPhoneNumber(userDTO.getPhoneNumber())
                 .orElseThrow(() -> new DataNotFoundException("Không tìm thấy số user này"));
@@ -142,7 +144,7 @@ public class UserService implements IUserService {
         }
 
         existingUser.setAddress(userDTO.getAddress());
-        existingUser.setDateOfBirth(existingUser.getDateOfBirth());
+//        existingUser.setDateOfBirth(existingUser.getDateOfBirth());
         existingUser.setFullName(userDTO.getFullName());
 
         User updatedUser = userRepository.save(existingUser);

@@ -1,0 +1,64 @@
+<app-header></app-header>
+<div class="container">
+    <div class="confirmation-container">
+        <h1>Lịch sử các đơn hàng</h1>
+        <p>Dưới đây là thông tin chi tiết về các đơn hàng của bạn</p>     
+    </div>
+    <div class="row">
+        <table *ngFor="let order of getOrder" class="mb-3">
+            <thead>
+                <tr (click)="toggleBodyAndFooter(order.id)" style="cursor: pointer;">
+                    <div style="background-color: rgb(101, 102, 172);">
+                        <th scope="col" class="text-start">Đơn hàng có Order ID: {{order.id}}</th>
+                        <th scope="col" class="text-start">Ngày đặt hàng: {{order.orderDate}}</th>
+                        <th scope="col" class="text-start">Ngày giao hàng: {{order.shippingDate}}</th>
+                    </div>
+                </tr>
+            </thead>
+            <tbody *ngIf="selectedOrder === order.id">
+                <div style="color: white;">
+                    <h2>Thông tin người nhận</h2>
+                    <p>Tên người nhận: {{order.fullName}}</p>
+                    <p>Email: {{order.email}}</p>
+                    <p>Số điện thoại: {{order.phoneNumber}}</p>
+                    <p>Địa chỉ: {{order.address}}</p>
+                    <p>Ghi chú: {{order.note}}</p>
+                    <p>Phương thức thanh toán: {{order.paymentMethod}}</p>
+                    <p>Phương thức vận chuyển: {{order.shippingMethod}}</p>
+                    <p>Tình trạng hiện tại: {{order.status}}</p>
+                </div>
+                <hr>
+                <h2>Sản phẩm đã đặt hàng</h2>
+                <table>
+                <tr>
+                    <th scope="col" class="text-start">Sản phẩm</th>
+                    <th scope="col">Số lượng</th>
+                    <th scope="col">Đơn giá</th>
+                    <th scope="col">Tổng giá</th>
+                </tr>
+                <tr *ngFor="let orderDetail of order.orderDetails">
+                    <td>
+                        <div class="product-info" (click)="onProductClick(orderDetail.product.id)">
+                            <img [src]="parseThumbnail(orderDetail.product.thumbnail)" alt="Product Image" class="product-image">
+                            <span class="product-name">{{orderDetail.product.name}}</span>
+                        </div>
+                    </td>
+                    <td>{{orderDetail.numberOfProducts}}</td>
+                    <td>${{orderDetail.price | number: '.0-0' }}</td>
+                    <td>${{orderDetail.price * orderDetail.numberOfProducts | number: '.0-0'  }}</td>
+                </tr>
+            </table>
+            </tbody>
+            <tfoot *ngIf="selectedOrder === order.id">
+                <tr>
+                    <td colspan="4" class="text-end">
+                        <h4 class="header-text">Tổng giá: ${{order.totalMoney}}</h4>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>  
+        
+        
+    </div>    
+</div>
+<app-footer></app-footer>
