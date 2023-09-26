@@ -49,10 +49,10 @@ public class OrderController {
     // Cập nhật trạng thái hoặc tổng tiền (của admin)
     @PutMapping("/{id}")
     public ResponseEntity<?> updateOrder(
-            @Valid @PathVariable Long id,
-            @Valid @RequestBody OrderDTO orderDTO){
+            @PathVariable Long id,
+            @RequestBody String status){
         try{
-            Order order = orderService.updateOrder(id, orderDTO);
+            Order order = orderService.updateOrder(id, status);
             return ResponseEntity.ok(order);
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -82,6 +82,28 @@ public class OrderController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+
+
+    @GetMapping("/order-confirm/pending")
+    public ResponseEntity<?> getPendingOrders(){
+        return ResponseEntity.status(HttpStatus.OK).body(orderService.getPendingOrders());
+    }
+
+    @GetMapping("/order-confirm/shipping")
+    public ResponseEntity<?> getShippingOrders(){
+        return ResponseEntity.status(HttpStatus.OK).body(orderService.getShippingOrders());
+    }
+
+    @GetMapping("/order-confirm/delivered")
+    public ResponseEntity<?> getDeliveredOrders(){
+        return ResponseEntity.status(HttpStatus.OK).body(orderService.getDeliveredOrders());
+    }
+
+    @GetMapping("/order-confirm/cancelled")
+    public ResponseEntity<?> getCancelledOrders(){
+        return ResponseEntity.status(HttpStatus.OK).body(orderService.getCancelledOrders());
+    }
+
 
 
     @GetMapping("/{id}")

@@ -32,13 +32,7 @@ export class AdminListProductsComponent {
       this.getCategories();
   }
 
-  toggleAllCheckboxes() {
-  const checkboxes = document.getElementsByName('foo');
-  const checkAllCheckbox = document.getElementById('checkAll') as HTMLInputElement;
-  for (let i = 0; i < checkboxes.length; i++) {
-    (checkboxes[i] as HTMLInputElement).checked = checkAllCheckbox.checked;
-  }
-}
+  
 
   getCategories(){
     this.categoryService.getCategories().subscribe({
@@ -122,6 +116,20 @@ export class AdminListProductsComponent {
       this.selectedIds.splice(index, 1); // Remove ID if already selected
     } else {
       this.selectedIds.push(id); // Add ID if not selected
+    }
+  }
+
+  toggleAllCheckboxes() {
+    const checkboxes = document.getElementsByName('foo');
+    const checkAllCheckbox = document.getElementById('checkAll') as HTMLInputElement;
+    for (let i = 0; i < checkboxes.length; i++) {
+      const checkbox = checkboxes[i] as HTMLInputElement;
+    checkbox.checked = checkAllCheckbox.checked;
+
+    if (checkbox.checked) {
+      const productId =  parseInt(checkbox.value, 10); // Convert to number
+      this.toggleSelection(productId);
+    }
     }
   }
 

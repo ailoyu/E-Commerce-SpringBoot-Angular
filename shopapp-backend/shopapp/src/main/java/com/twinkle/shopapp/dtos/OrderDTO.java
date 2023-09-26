@@ -40,6 +40,8 @@ public class OrderDTO {
     @NotBlank(message = "Vui lòng nhập địa chỉ!")
     private String address;
 
+    private String status;
+
     private String note;
 
     @JsonProperty("total_money")
@@ -61,5 +63,6 @@ public class OrderDTO {
     @JsonProperty("cart_items")
     @NotEmpty(message = "Vui lòng không để giỏ hàng trống!")
     private List<CartItemDTO> cartItems;
+
 
 }

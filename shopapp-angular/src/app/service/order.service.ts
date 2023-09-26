@@ -33,11 +33,37 @@ export class OrderService {
     const token: string = this.tokenService.getToken() || '';
       
         if (token.length !== 0) {
-          const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+          // const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
           const url = `${environment.apiBaseUrl}/orders/history/${user_id}`;
     
-          return this.http.get<any>(url, { headers });
+          return this.http.get<any>(url);
         }
   return null;
-}
+  }
+
+  getAdminOrders(status: string): Observable<any> | null {   
+    debugger 
+    const token: string = this.tokenService.getToken() || '';
+      
+        if (token.length !== 0) {
+          // const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+          const url = `${environment.apiBaseUrl}/orders/order-confirm/` + status;
+    
+          return this.http.get<any>(url);
+        }
+    return null;
+  }
+
+  updateOrder(orderId: number, status: string){
+    const token: string = this.tokenService.getToken() || '';
+      
+        if (token.length !== 0) {
+          // const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+          const url = `${environment.apiBaseUrl}/orders/${orderId}`;
+    
+          return this.http.put(url, status);
+        }
+    return null;
+  }
+
 }

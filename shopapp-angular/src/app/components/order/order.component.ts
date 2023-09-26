@@ -167,7 +167,7 @@ export class OrderComponent implements OnInit{
         debugger   
         // this.cartService.clearCart();    
         alert('Đặt hàng thành công');
-        this.router.navigate(['/order-confirm']); 
+        this.router.navigate(['/order-detail']); 
         console.log('Đặt hàng thành công');
       },
       complete: () => {

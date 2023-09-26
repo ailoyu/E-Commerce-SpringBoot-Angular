@@ -38,34 +38,7 @@ export class OrderHistoryComponent implements OnInit{
             this.selectedOrder = orderId;
         }
     }
-  
 
-  // ngOnInit(): void {
-  //   debugger
-  //   // Lấy sdt từ token ra -> gọi api getOrderByPhoneNumber (lịch sử đơn hàng)
-  //   this.loginResponse$ = this.tokenService.displayUserInformation();
-
-  //   this.loginResponse$?.subscribe(response => {
-  //     debugger
-  //     this.loginResponse = { ...response };
-
-      
-      
-  //     this.loginResponse$?.subscribe(response => 
-  //       this.orderService.getOrderByUserId(response?.id)?.pipe(
-  //         map((order: any | null) => order ? [order] : [])
-  //       )
-  //       .subscribe((orders: any[]) => {
-  //         // Use the array of OrderDTO
-  //         this.getOrder = orders;
-  //         debugger
-  //         console.log(this.getOrder);
-  //       })
-  //       );
-  
-
-  //   });    
-  // }
 
   ngOnInit(): void {
     // Lấy sdt từ token ra -> gọi api getOrderByPhoneNumber (lịch sử đơn hàng)

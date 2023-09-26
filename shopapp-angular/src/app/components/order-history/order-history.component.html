@@ -8,7 +8,7 @@
         <table *ngFor="let order of getOrder" class="mb-3">
             <thead>
                 <tr (click)="toggleBodyAndFooter(order.id)" style="cursor: pointer;">
-                    <div style="background-color: #FF0000; ">
+                    <div style="background-color: rgb(101, 102, 172);">
                         <th scope="col" class="text-start">Đơn hàng có Order ID: {{order.id}}</th>
                         <th scope="col" class="text-start">Ngày đặt hàng: {{order.orderDate}}</th>
                         <th scope="col" class="text-start">Ngày giao hàng: {{order.shippingDate}}</th>

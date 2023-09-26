@@ -122,20 +122,12 @@ public class OrderService implements IOrderService {
 
     @Override
     @Transactional // rollback dữ liệu khi bị sai gì đó
-    public Order updateOrder(Long id, OrderDTO orderDTO) throws DataNotFoundException {
+    public Order updateOrder(Long id, String status) throws DataNotFoundException {
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new DataNotFoundException("Ko tìm thấy order này để update"));
 
-        User existingUser = userRepository.findById(orderDTO.getUserId())
-                .orElseThrow(() -> new DataNotFoundException("Ko tìm thấy user để update order"));
+        order.setStatus(status);
 
-        // Map từ orderDTO -> order (ko map id)
-        modelMapper.typeMap(OrderDTO.class, Order.class)
-                .addMappings(mapper -> mapper.skip(Order::setId));
-
-        // bắt đầu mapping
-        modelMapper.map(orderDTO, order);
-        order.setUser(existingUser);
         return orderRepository.save(order);
     }
 
@@ -156,5 +148,25 @@ public class OrderService implements IOrderService {
     @Override
     public List<Order> findByUserId(Long userId) {
         return orderRepository.findByUserId(userId);
+    }
+
+    @Override
+    public List<Order> getPendingOrders() {
+        return orderRepository.findAllByStatus(OrderStatus.PENDING);
+    }
+
+    @Override
+    public List<Order> getShippingOrders() {
+        return orderRepository.findAllByStatus(OrderStatus.SHIPPING);
+    }
+
+    @Override
+    public List<Order> getDeliveredOrders() {
+        return orderRepository.findAllByStatus(OrderStatus.DELIVERED);
+    }
+
+    @Override
+    public List<Order> getCancelledOrders() {
+        return orderRepository.findAllByStatus(OrderStatus.CANCELLED);
     }
 }

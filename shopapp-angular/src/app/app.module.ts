@@ -5,7 +5,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { DetailProductComponent } from './components/detail-product/detail-product.component';
 import { OrderComponent } from './components/order/order.component';
-import { OrderConfirmComponent } from './components/order-confirm/order-confirm.component';
+import { OrderDetailComponent } from './components/order-detail/order-detail.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { FormsModule } from '@angular/forms';
@@ -32,6 +32,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IdentityComponent } from './components/identity/identity.component';
 import { AdminEditComponent } from './components/admin-edit/admin-edit.component';
 import { AdminListProductsComponent } from './components/admin-list-products/admin-list-products.component';
+import { AdminOrderConfirmComponent } from './components/admin-order-confirm/admin-order-confirm.component';
 
 
 
@@ -43,7 +44,7 @@ import { AdminListProductsComponent } from './components/admin-list-products/adm
          FooterComponent,
          DetailProductComponent,
          OrderComponent,
-         OrderConfirmComponent,
+         OrderDetailComponent,
          LoginComponent,
          RegisterComponent,
          AppComponent,
@@ -54,6 +55,7 @@ import { AdminListProductsComponent } from './components/admin-list-products/adm
          IdentityComponent,
          AdminEditComponent,
          AdminListProductsComponent,
+         AdminOrderConfirmComponent,
   ],
   imports: [
     ReactiveFormsModule,

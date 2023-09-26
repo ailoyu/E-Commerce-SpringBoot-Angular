@@ -1,0 +1,92 @@
+<app-header></app-header>
+<div class="dashboard">
+    <div class="dashboard-sidebar">
+      <!-- Add your dashboard components here -->
+      <ul>
+        <li><a routerLink="/admin/list-products" routerLinkActive="active">Chỉnh sửa sản phẩm</a></li>
+        <li><a routerLink="/admin/order-confirm/pending" routerLinkActive="active">Xác nhận đơn hàng</a></li>
+        <li><a routerLink="/admin/edit-products" routerLinkActive="active">Thêm mới sản phẩm</a></li>
+      </ul>
+    </div>
+<div class="container">
+    <div class="confirmation-container">
+        <h1>Quản lý các đơn hàng</h1>
+        <p>Dưới đây là thông tin chi tiết về các đơn hàng của khách hàng</p>     
+    </div>
+    <ul class="nav nav-tabs">
+        <li class="nav-item" routerLink="/admin/order-confirm/pending" routerLinkActive="active" >
+          <a class="nav-link" >Đang xử lý</a>
+        </li>
+        <li class="nav-item" routerLink="/admin/order-confirm/shipping" routerLinkActive="active">
+          <a class="nav-link">Đang vận chuyển</a>
+        </li>
+        <li class="nav-item" routerLink="/admin/order-confirm/delivered" routerLinkActive="active">
+          <a class="nav-link">Đã giao hàng</a>
+        </li>
+        <li class="nav-item" routerLink="/admin/order-confirm/cancelled" routerLinkActive="active">
+          <a class="nav-link">Hủy đơn hàng</a>
+        </li>
+      </ul>
+    <div class="row">
+        
+        <table *ngFor="let order of getOrder" class="mb-3">
+            <thead>
+                <tr (click)="toggleBodyAndFooter(order.id)" style="cursor: pointer;">
+                    <div style="background-color: rgb(101, 102, 172);">
+                        <th scope="col" class="text-start">Đơn hàng có Order ID: {{order.id}}</th>
+                        <th scope="col" class="text-start">Ngày đặt hàng: {{order.orderDate}}</th>
+                        <th scope="col" class="text-start">Ngày giao hàng: {{order.shippingDate}}</th>
+                    </div>
+                </tr>
+            </thead>
+            <tbody *ngIf="selectedOrder === order.id">
+                <div style="color: white;">
+                    <h2>Thông tin người nhận</h2>
+                    <p>Tên người nhận: {{order.fullName}}</p>
+                    <p>Email: {{order.email}}</p>
+                    <p>Số điện thoại: {{order.phoneNumber}}</p>
+                    <p>Địa chỉ: {{order.address}}</p>
+                    <p>Ghi chú: {{order.note}}</p>
+                    <p>Phương thức thanh toán: {{order.paymentMethod}}</p>
+                    <p>Phương thức vận chuyển: {{order.shippingMethod}}</p>
+                    <p>Tình trạng hiện tại: {{order.status}}</p>
+                    <div class="buttons-container">
+                        <button class="btn btn-gradient confirm-btn" *ngIf="order.status === 'Đang xử lý'" (click)="confirmOrder(order.id, 'Đang vận chuyển')">Xác nhận đơn hàng</button>
+                        <button class="btn btn-gradient cancel-btn" *ngIf="order.status === 'Đang xử lý'" (click)="confirmOrder(order.id, 'Đã hủy')">Hủy đơn hàng</button>
+                        <button class="btn btn-gradient confirm-btn" *ngIf="order.status === 'Đang vận chuyển'" (click)="confirmOrder(order.id, 'Đã giao hàng')">Đã giao hàng</button>
+                    </div>        
+                </div>
+                <hr>
+                <h2>Sản phẩm đã đặt hàng</h2>
+                <table>
+                <tr>
+                    <th scope="col" class="text-start">Sản phẩm</th>
+                    <th scope="col">Số lượng</th>
+                    <th scope="col">Đơn giá</th>
+                    <th scope="col">Tổng giá</th>
+                </tr>
+                <tr *ngFor="let orderDetail of order.orderDetails">
+                    <td>
+                        <div class="product-info" (click)="onProductClick(orderDetail.product.id)">
+                            <img [src]="parseThumbnail(orderDetail.product.thumbnail)" alt="Product Image" class="product-image">
+                            <span class="product-name">{{orderDetail.product.name}}</span>
+                        </div>
+                    </td>
+                    <td>{{orderDetail.numberOfProducts}}</td>
+                    <td>${{orderDetail.price | number: '.0-0' }}</td>
+                    <td>${{orderDetail.price * orderDetail.numberOfProducts | number: '.0-0'  }}</td>
+                </tr>
+            </table>
+            </tbody>
+            <tfoot *ngIf="selectedOrder === order.id">
+                <tr>
+                    <td colspan="4" class="text-end">
+                        <h4 class="header-text">Tổng giá: ${{order.totalMoney}}</h4>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>  
+    </div>    
+</div>
+</div>
+<app-footer></app-footer>

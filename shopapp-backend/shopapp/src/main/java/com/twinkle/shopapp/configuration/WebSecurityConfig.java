@@ -84,8 +84,9 @@ public class WebSecurityConfig {
                             .requestMatchers(HttpMethod.POST,
                                     "api/v1/orders/**").permitAll()
 
-                            .requestMatchers(HttpMethod.GET,
-                                    "api/v1/orders/**").hasAnyRole(Role.USER, Role.ADMIN)
+                            .requestMatchers(HttpMethod.GET, "api/v1/orders/history/{user_id}").hasAnyRole(Role.USER, Role.ADMIN)
+
+                            .requestMatchers(HttpMethod.GET, "api/v1/orders/order-confirm/**").hasRole(Role.ADMIN)
 
                             .requestMatchers(HttpMethod.PUT,
                                     "api/v1/orders/**").hasRole(Role.ADMIN)
