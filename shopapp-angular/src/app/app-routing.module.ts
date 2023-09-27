@@ -19,6 +19,7 @@ import { AdminOrderConfirmComponent } from './components/admin/admin-order-confi
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '**', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'products', component: ProductsComponent },
   { path: 'login', component: LoginComponent }, 
