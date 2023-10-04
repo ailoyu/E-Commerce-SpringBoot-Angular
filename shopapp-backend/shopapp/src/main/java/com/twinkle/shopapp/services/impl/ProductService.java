@@ -123,28 +123,35 @@ public class ProductService implements IProductService {
 //                 productImageRepository.deleteAllByProduct(existingProduct);
 //             }
 
+            if(productDTO.getImages().length > 0){
+                List<String> newImages = Arrays.stream(productDTO.getImages())
+                        .map(image -> {
+                            try {
+                                return image.startsWith("http") ?
+                                        image.substring(image.lastIndexOf("/") + 1)
+                                        : ImageUtils.storeFileWithBase64(image);
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        })
+                        .collect(Collectors.toList());
 
-            List<String> newImages = Arrays.stream(productDTO.getImages())
-                    .map(image -> {
-                        try {
-                            return image.startsWith("http") ?
-                                    image.substring(image.lastIndexOf("/") + 1)
-                                    : ImageUtils.storeFileWithBase64(image);
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    })
-                    .collect(Collectors.toList());
+                productImageRepository.deleteAllByProduct(existingProduct);
 
-            productImageRepository.deleteAllByProduct(existingProduct);
+                for(String image : newImages){
+                    ProductImage productImage = new ProductImage();
+                    productImage.setProduct(existingProduct);
+                    productImage.setImageUrl(image);
 
-            for(String image : newImages){
-                ProductImage productImage = ProductImage.builder()
-                        .product(existingProduct)
-                        .imageUrl(image)
-                        .build();
-                productImageRepository.save(productImage);
+                    // Set ảnh đầu tiên làm thumbnail
+                    if(image.equals(newImages.get(0))){
+                        existingProduct.setThumbnail(image);
+                        productRepository.save(existingProduct);
+                    }
+                    productImageRepository.save(productImage);
+                }
             }
+
 
             return productRepository.save(existingProduct);
 
